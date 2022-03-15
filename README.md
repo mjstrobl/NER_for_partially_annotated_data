@@ -1,1 +1,3 @@
-# NER_for_partially_annotated_data
+# NER for partially annotated_data
+
+Datasets and code coming soon!
