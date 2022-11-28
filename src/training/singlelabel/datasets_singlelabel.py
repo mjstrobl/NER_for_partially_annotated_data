@@ -191,14 +191,14 @@ def label_words(text, important_articles_lower, tokenizer, label_map,pad_token_l
 
 
 def create_important_articles():
-    '''path = '/media/michi/Data/latest_wiki/dictionaries/'
+    '''path = ''
 
     id2title = json.load(open(path + 'id2title.json'))
     title2id = json.load(open(path + 'title2Id.json'))
     hierarchy = json.load(open(path + 'hierarchy.json'))
-    keep = json.load(open('/home/michi/repos/projects/categories/new2.txt'))
+    keep = json.load(open(''))
 
-    aliases_reverse = json.load(open("/media/michi/Data/latest_wiki/dictionaries/aliases_reverse.json"))
+    aliases_reverse = json.load(open(""))
 
     new_id2title = {}
     for id in id2title:
@@ -265,10 +265,10 @@ def create_important_articles():
                             if article[-1] == 's':
                                 important_articles_lower.add(article[:-1])
 
-    with open('/home/michi/results/important_artilces_lower.json','w') as f:
+    with open('important_artilces_lower.json','w') as f:
         json.dump(list(important_articles_lower),f)'''
 
-    important_articles_lower = json.load(open("/media/michi/Data/datasets/ner/food/important_articles_lower.json"))
+    important_articles_lower = json.load(open("food/important_articles_lower.json"))
 
     return important_articles_lower
 

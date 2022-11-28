@@ -41,7 +41,6 @@ def main():
     config = json.load(open("../config/config.json"))
 
     model_name_or_path = config['model_name_or_path']
-    #model_name_or_path = "/media/michi/Data/models/seq_ner_new_new/filtered_english_conll_bert_base_cased_epochs_singlelabel_3_num_train_-1/checkpoint-17250/"
     cache_dir = None
     task_name = "ner"
     max_seq_length = 128
@@ -163,7 +162,6 @@ def main():
 
         print("found " + str(len(features)) + " features.")
 
-        #features = conll_file_to_features('/home/michi/repos/ner_incomplete_annotation/data/conll2003/conll/' + mode + ".txt",max_seq_length, label_list, tokenizer,pad_token_label_id=pad_token_label_id)
 
         all_input_ids = torch.tensor([f.input_ids for f in features], dtype=torch.long)
         all_input_mask = torch.tensor([f.input_mask for f in features], dtype=torch.long)

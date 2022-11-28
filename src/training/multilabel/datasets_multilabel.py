@@ -613,7 +613,7 @@ def get_labels(path=None):
         #return ["O", "B-MISC", "I-MISC", "B-PER", "I-PER", "B-ORG", "I-ORG", "B-LOC", "I-LOC", "B-" + LABEL, "I-"+ LABEL]
 
 def main():
-    filename = '/media/michi/Data/datasets/food/wiki_food_conll.txt'
+    filename = ''
     max_seq_length = 128
     label_list = get_labels()
     tokenizer = AutoTokenizer.from_pretrained(

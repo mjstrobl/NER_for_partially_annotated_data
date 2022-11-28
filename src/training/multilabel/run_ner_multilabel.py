@@ -40,7 +40,7 @@ logger = logging.getLogger(__name__)
 def main():
     config = json.load(open("../config/config.json"))
 
-    model_name_or_path = config['model_name_or_path']    #model_name_or_path = "/media/michi/Data/models/seq_ner/english_conll_bert_base_cased_epochs_multilabel_2/checkpoint-10500/"
+    model_name_or_path = config['model_name_or_path']
     cache_dir = None
     task_name = "ner"
     max_seq_length = 128
