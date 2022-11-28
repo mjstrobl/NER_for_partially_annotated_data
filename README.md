@@ -22,4 +22,4 @@
 
 ## Train models
 
-Code to train and test models coming soon!
+See src/training.
