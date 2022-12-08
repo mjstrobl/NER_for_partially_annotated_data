@@ -1,4 +1,7 @@
 # coding=utf-8
+#
+#   Modified by Michael Strobl 2022
+#
 # Copyright 2018 The Google AI Language Team Authors and The HuggingFace Inc. team.
 # Copyright (c) 2018, NVIDIA CORPORATION.  All rights reserved.
 #
@@ -601,35 +604,5 @@ def convert_wiki_gold_features(wiki_gold_filename,
     return features
 
 
-def get_labels(path=None):
-    if path:
-        with open(path, "r") as f:
-            labels = f.read().splitlines()
-        if "O" not in labels:
-            labels = ["O"] + labels
-        return labels
-    else:
-        return ["O", "B-MISC", "I-MISC", "B-PER", "I-PER", "B-ORG", "I-ORG", "B-LOC", "I-LOC"]
-        #return ["O", "B-MISC", "I-MISC", "B-PER", "I-PER", "B-ORG", "I-ORG", "B-LOC", "I-LOC", "B-" + LABEL, "I-"+ LABEL]
-
-def main():
-    filename = ''
-    max_seq_length = 128
-    label_list = get_labels()
-    tokenizer = AutoTokenizer.from_pretrained(
-        "bert-base-cased",
-        cache_dir=None,
-        use_fast=True
-    )
-    len_features = 63629
-
-    n_train = int(len_features * 0.8)
-    n_dev = int((len_features - n_train) / 2)
-
-    features = conll_file_to_features(filename, max_seq_length, label_list, tokenizer,n_train, n_dev)
-    print(len(features))
-
-
-
-if __name__ == "__main__":
-    main()
+def get_labels():
+    return ["O", "B-MISC", "I-MISC", "B-PER", "I-PER", "B-ORG", "I-ORG", "B-LOC", "I-LOC","B-DRUG","I-DRUG"]

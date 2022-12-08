@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+#
+#   Modified by Michael Strobl 2022
+#
 # coding=utf-8
 # Copyright 2020 The HuggingFace Team All rights reserved.
 #
@@ -73,6 +76,7 @@ def main():
 
     output_dir = config['output_dir'] + 'multilabel/'
 
+    # TODO: adjust label_list depending on dataset.
     label_list = get_labels()
     num_labels = len(label_list)
 
@@ -103,10 +107,10 @@ def main():
     logger.info("Creating features from dataset file at %s", data_dir)
     modes = {"test","dev","train"}
     datasets = {}
-    '''important_articles_lower = json.load(open(config['important_articles_lower']))
+    important_articles_lower = json.load(open(config['important_articles_lower']))
 
 
-    wiki_features = conll_file_to_features(config['wiki_food'],max_seq_length,label_list, tokenizer)
+    wiki_features = conll_file_to_features(config['wiki'],max_seq_length,label_list, tokenizer)
     random.seed(10)
     random.shuffle(wiki_features)
 
@@ -132,7 +136,7 @@ def main():
     dataset = TensorDataset(all_input_ids, all_input_mask, all_segment_ids, all_weights, all_label_ids)
     datasets['gold'] = dataset
     datasets['gold_tokens'] = all_tokens
-'''
+
     
     for mode in modes:
         if not do_train and mode == "train":
@@ -145,7 +149,7 @@ def main():
             continue
 
         examples = read_examples_from_file_whole_lines(data_dir, mode)
-        features = convert_examples_to_features(examples,important_articles_lower,
+        features = convert_examples_to_features(examples, important_articles_lower,
                                                 label_list,
                                                 max_seq_length,
                                                 tokenizer)
@@ -160,7 +164,7 @@ def main():
         dataset_conll = TensorDataset(all_input_ids, all_input_mask, all_segment_ids, all_weights, all_label_ids)
 
 
-        '''all_input_ids = torch.tensor([f.input_ids for f in datasets[mode]], dtype=torch.long)
+        all_input_ids = torch.tensor([f.input_ids for f in datasets[mode]], dtype=torch.long)
         all_input_mask = torch.tensor([f.input_mask for f in datasets[mode]], dtype=torch.long)
         all_segment_ids = torch.tensor([f.segment_ids for f in datasets[mode]], dtype=torch.long)
         all_weights = torch.tensor([f.weights for f in datasets[mode]], dtype=torch.long)
@@ -187,10 +191,10 @@ def main():
         all_segment_ids = torch.tensor([f.segment_ids for f in features], dtype=torch.long)
         all_weights = torch.tensor([f.weights for f in features], dtype=torch.long)
         all_label_ids = torch.tensor([f.label_ids for f in features], dtype=torch.long)
-        '''
+
         datasets[mode + "_conll"] = dataset_conll
         datasets[mode + "_conll_tokens"] = all_tokens_conll
-        #datasets[mode] = TensorDataset(all_input_ids, all_input_mask, all_segment_ids, all_weights, all_label_ids)
+        datasets[mode] = TensorDataset(all_input_ids, all_input_mask, all_segment_ids, all_weights, all_label_ids)
         datasets[mode + "_tokens"] = all_tokens
 
     # Training
@@ -264,13 +268,13 @@ def main():
         evaluate(config['results_dir'],datasets, model, per_gpu_train_batch_size, device, model_type, label_list,prefix='test_conll')
 
         print("WIKI:")
-        #evaluate(config['results_dir'],datasets, model, per_gpu_train_batch_size, device, model_type, label_list,prefix='test_wiki')
+        evaluate(config['results_dir'],datasets, model, per_gpu_train_batch_size, device, model_type, label_list,prefix='test_wiki')
 
     # Wiki
     if do_wiki:
         print("*** Predict ***")
 
-        #evaluate(config['results_dir'], datasets, model, per_gpu_train_batch_size, device, model_type, label_list, prefix='gold')
+        evaluate(config['results_dir'], datasets, model, per_gpu_train_batch_size, device, model_type, label_list, prefix='gold')
 
 
 def _mp_fn(index):

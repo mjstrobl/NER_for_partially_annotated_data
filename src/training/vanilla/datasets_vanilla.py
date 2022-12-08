@@ -1,4 +1,7 @@
 # coding=utf-8
+#
+#   Modified by Michael Strobl 2022
+#
 # Copyright 2018 The Google AI Language Team Authors and The HuggingFace Inc. team.
 # Copyright (c) 2018, NVIDIA CORPORATION.  All rights reserved.
 #
@@ -555,6 +558,5 @@ def convert_wiki_gold_features(
     return features
 
 
-def get_labels(include_food=True):
+def get_labels():
     return ["O", "B-MISC", "I-MISC", "B-PER", "I-PER", "B-ORG", "I-ORG", "B-LOC", "I-LOC","B-DRUG","I-DRUG"]
-    #return ["O","B-ENTITY","I-ENTITY"]

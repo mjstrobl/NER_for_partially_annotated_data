@@ -1,5 +1,7 @@
 # NER for Partially Annotated Data
 
+Code and datasets used in our paper "Named Entity Recognition for Partially Annotated Datasets" (https://arxiv.org/abs/2204.09081).
+
 ## Setup
 
 1. Install requirements in requirements.txt
@@ -20,6 +22,10 @@
 1. Start server (https://stanfordnlp.github.io/CoreNLP/corenlp-server.html): ``java -mx4g -cp "<path to CoreNLP>/*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9000 -timeout 15000 -ner.model 4class -ner.applyFineGrained false -ner.statisticalOnly true``
 2. Run ``process_hierarchy.sh``
 
+## Datasets
+
+Wikipedia category hierarchies, related article names, sentences from Wikipedia and gold annotated datasets for Food and Drugs can be found in the data/ directory.
+
 ## Train models
 
-See src/training.
+Please find code for all three models used in the paper in src/training. Paths to the datasets need to be adjusted in src/traininig/config/config.json.

@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+#
+#   Modified by Michael Strobl 2022
+#
 # coding=utf-8
 # Copyright 2020 The HuggingFace Team All rights reserved.
 #
@@ -72,7 +75,8 @@ def main():
     logging_steps = 2759
     output_dir = config['output_dir'] + 'vanilla/'
 
-    label_list = get_labels(include_food=True)
+    # TODO: adjust label_list depending on dataset.
+    label_list = get_labels()
     num_labels = len(label_list)
 
     # Load pretrained model and tokenizer
@@ -103,7 +107,7 @@ def main():
     modes = {"test","dev","train"}
     datasets = {}
 
-    wiki_features = conll_file_to_features(config['wiki_food'],max_seq_length, label_list, tokenizer,pad_token_label_id=pad_token_label_id)
+    wiki_features = conll_file_to_features(config['wiki'],max_seq_length, label_list, tokenizer,pad_token_label_id=pad_token_label_id)
 
     #wiki_features, important_articles_lower,more_entities = convert_wiki_line_to_features(label_list,max_seq_length,tokenizer,pad_token_label_id=pad_token_label_id)
     random.seed(10)
@@ -133,11 +137,6 @@ def main():
     dataset = TensorDataset(all_input_ids, all_input_mask, all_segment_ids, all_label_ids)
     datasets['gold'] = dataset
     datasets['gold_tokens'] = all_tokens
-
-
-    '''datasets['train'] = []
-    datasets['dev'] = []
-    datasets['test'] = []'''
 
     for mode in modes:
         if not do_train and mode == "train":

@@ -1,0 +1,9 @@
+{
+  "model_name_or_path": "bert-base-cased",
+  "data_dir": "<path to conll datasets>",
+  "output_dir": "",
+  "important_articles_lower": "../data/important_articles.json",
+  "wiki": "all_wiki_data.txt",
+  "wiki_gold_filename": "sentences_gold.txt",
+  "results_dir": "../results/"
+}
